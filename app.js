@@ -114,5 +114,20 @@ bittrex.websockets.listen( function( data ) {
     });
   }
 });
+//Remi get price
+//interval timer 
+function getPriceRemi() {
+  afterLoad('https://remitano.com/vn',function(html){
+        var posLast = html.lastIndexOf("VND");        
+        var subString = html.substring( posLast-200,posLast+5);
+        var posFirst=subString.indexOf("vn");
+        var priceRemi="{"+subString.substring(posFirst-1,subString.lengh)+"}";
+        console.log(priceRemi);
+        subString="{"+priceRemi+"}";
+        io.emit('remiMessages', priceRemi);
+         
+    });
+}
 
+setInterval(getPriceRemi, 5000);
 
