@@ -627,6 +627,10 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
             console.log("Disconnected");    
     });	
 	
+	socketio.on('remiMessages',function(data){
+		console.log(data);    
+	})
+	
 	coincapio.on('global',function(globalMsg){
 		console.log("globalMsg:",globalMsg);
 	});
