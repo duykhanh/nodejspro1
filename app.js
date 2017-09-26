@@ -123,8 +123,8 @@ function getPriceRemi() {
         var posFirst=subString.indexOf("vn");
         var priceRemi="{"+subString.substring(posFirst-1,subString.lengh)+"}";
         console.log(priceRemi);
-        subString="{"+priceRemi+"}";
-        io.emit('remiMessages', priceRemi);
+        priceRemi="{"+priceRemi+"}";
+        io.emit('remiMessages', JSON.parse(priceRemi));
          
     });
 }
