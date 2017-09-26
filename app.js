@@ -13,7 +13,7 @@ var bittrex = require('node.bittrex.api');
 var autobahn = require('autobahn');
 var wsuri = "wss://api.poloniex.com";
 var bodyParser = require("body-parser");
-
+var afterLoad = require("after-load");
 var connection = new autobahn.Connection({
     url: wsuri,
     realm: "realm1"
