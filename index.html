@@ -628,7 +628,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
     });	
 	
 	socketio.on('remiMessages',function(data){
-		console.log(data);    
+		console.log(data.vn);    
 	})
 	
 	coincapio.on('global',function(globalMsg){
