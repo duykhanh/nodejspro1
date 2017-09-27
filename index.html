@@ -125,7 +125,7 @@
 
 <body ng-app="myApp">
 	
-	<div class="container-fluid">
+	<div class="container-fluid" ng-controller="MainCtrl" ng-init="init()">
 		<div class="page-header">
 			<h1>Currencies Price Ticker</h1>
 		</div>
@@ -173,7 +173,7 @@
 				</table>
 			</div>	
 		</div>
-		<div class="row" ng-controller="MainCtrl" ng-init="init()">
+		<div class="row" >
 			<div class="col-xs-12">
 				<h2>Tầm bậy </h2>
 				<hr>
@@ -396,7 +396,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	$scope.BITTREX=1;
 	$scope.POLONIEX=2;
 	
-	$scope.remiPrice={btc_bid: 0, btc_ask: 0, eth_bid: 0, eth_ask: 0, currency: "VND"};
+	$scope.remiPrice={};
 	
 	$scope.init=function(){
 		$scope.getPTicker();
