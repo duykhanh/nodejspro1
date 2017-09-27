@@ -640,11 +640,11 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	
 	$scope.updateUSDRate=function(){
 		
-		var found_bbtc = $filter('filter')(usdt_bcurrencies, {currencyPair: "USDT_BTC"}, true);
-		var found_pbtc = $filter('filter')(usdt_pcurrencies, {currencyPair: "USDT_BTC"}, true);
+		var found_bbtc = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_BTC"}, true);
+		var found_pbtc = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_BTC"}, true);
 		
-		var found_beth = $filter('filter')(usdt_bcurrencies, {currencyPair: "USDT_ETH"}, true);
-		var found_peth = $filter('filter')(usdt_pcurrencies, {currencyPair: "USDT_ETH"}, true);
+		var found_beth = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_ETH"}, true);
+		var found_peth = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_ETH"}, true);
 		
 		console.log(found_bbtc);
 		console.log(found_pbtc);
