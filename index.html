@@ -382,6 +382,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	$scope.startwithBTC="BTC_";
 	$scope.startwithUSDT="USDT_";
 	
+	
 	$scope.displayPBTCCollection = [];
 	$scope.displayPUSDTCollection = [];
 	$scope.displayBBTCCollection = [];
@@ -397,6 +398,8 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	$scope.POLONIEX=2;
 	
 	$scope.remiPrice={};
+	
+	$scope.usdRate={};
 	
 	$scope.init=function(){
 		$scope.getPTicker();
@@ -635,6 +638,21 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		}
 	}
 	
+	$scope.updateUSDRate=function(){
+		var found_bbtc = $filter('filter')(currencies, {currencyPair: "USDT_BTC"}, true);
+		var found_pbtc = $filter('filter')(currencies, {currencyPair: "USDT_BTC"}, true);
+		
+		var found_beth = $filter('filter')(currencies, {currencyPair: "USDT_ETH"}, true);
+		var found_peth = $filter('filter')(currencies, {currencyPair: "USDT_ETH"}, true);
+		
+		console.log(found_bbtc);
+		console.log(found_pbtc);
+		console.log("================================");
+		console.log(found_beth);
+		console.log(found_peth);
+		
+	}
+	
     socketio.on('connect', function () {
 	    console.log("Connected");	
     });
@@ -673,6 +691,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	socketio.on('remiMessages',function(data){
 		$scope.remiPrice=data.vn;
 		console.log($scope.remiPrice);    
+		$scope.updateUSDRate();
 	})
 	
 	coincapio.on('global',function(globalMsg){
