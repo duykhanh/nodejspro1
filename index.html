@@ -129,7 +129,50 @@
 		<div class="page-header">
 			<h1>Currencies Price Ticker</h1>
 		</div>
-		
+		<div class="row">
+			<div class="col-xs-6">
+				<h3>BTC</h3>
+				<table>
+					<thead>
+						<tr>
+							<td>Ask</td>
+							<td>Bid</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								{{remiPrice.btc_ask}}
+							</td>
+							<td>
+								{{remiPrice.btc_bid}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+			<div class="col-xs-6">
+				<h3>ETH</h3>
+				<table>
+					<thead>
+						<tr>
+							<td>Ask</td>
+							<td>Bid</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								{{remiPrice.eth_ask}}
+							</td>
+							<td>
+								{{remiPrice.eth_bid}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>	
+		</div>
 		<div class="row" ng-controller="MainCtrl" ng-init="init()">
 			<div class="col-xs-12">
 				<h2>Tầm bậy </h2>
@@ -353,7 +396,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	$scope.BITTREX=1;
 	$scope.POLONIEX=2;
 	
-	
+	$scope.remiPrice={btc_bid: 0, btc_ask: 0, eth_bid: 0, eth_ask: 0, currency: "VND"};
 	
 	$scope.init=function(){
 		$scope.getPTicker();
@@ -628,6 +671,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
     });	
 	
 	socketio.on('remiMessages',function(data){
+		$scope.remiPrice=data.vn;
 		console.log(data.vn);    
 	})
 	
