@@ -672,7 +672,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	
 	socketio.on('remiMessages',function(data){
 		$scope.remiPrice=data.vn;
-		console.log(data.vn);    
+		console.log($scope.remiPrice);    
 	})
 	
 	coincapio.on('global',function(globalMsg){
