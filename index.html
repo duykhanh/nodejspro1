@@ -467,6 +467,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	$scope.remiPrice={};
 	
 	$scope.usdRate={};
+	$scope.globalMarket={};
 	
 	$scope.init=function(){
 		$scope.getPTicker();
@@ -795,14 +796,14 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		
 	})
 	
-	$scope.globalMarket={};
+	
 	socketio.on('globalMarketCap',function(data){
 		$scope.globalMarket=data;		  
-		
+		console.log("globalMsg:",$scope.globalMarket);
 	})
 	
 	coincapio.on('global',function(globalMsg){
-		console.log("globalMsg:",globalMsg);
+		
 	});
 	
 	coincapio.on('trades',function(tradeMsg){
