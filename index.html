@@ -120,6 +120,11 @@
 	
 	height: 600px;	
 }	
+.list-inline {
+    padding-left: 0;
+    list-style: none;
+    margin-left: -5px;
+}
   </style>
 </head>
 
@@ -128,6 +133,12 @@
 	<div class="container-fluid" ng-controller="MainCtrl" ng-init="init()">
 		<div class="page-header">
 			<h1>Currencies Price Ticker</h1>
+		</div>
+		
+		<div class="row">
+			<div id="global-stats-values" class="col-xs-12">
+				<ul class="list-inline stat-counters">Market Cap: <strong><a href="https://coinmarketcap.com/charts/">{{$scope.globalMarket.total_market_cap_usd}}</a></strong> <li> / 24h Vol: <strong><a href="https://coinmarketcap.com/charts/">{{$scope.globalMarket.total_24h_volume_usd}}</a></strong> / BTC Dominance: <strong><a href="https://coinmarketcap.com/charts/#dominance-percentage">{{{{$scope.globalMarket.bitcoin_percentage_of_market_cap}}}}</a></strong></li></ul>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-6">
@@ -781,6 +792,12 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		$timeout(function(){
 			$scope.updateUSDRate();
 		},200);    
+		
+	})
+	
+	$scope.globalMarket={};
+	socketio.on('globalMarketCap',function(data){
+		$scope.globalMarket=data;		  
 		
 	})
 	
