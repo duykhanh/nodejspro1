@@ -131,3 +131,23 @@ function getPriceRemi() {
 
 setInterval(getPriceRemi, 5000);
 
+//get marketmap information
+function gloablMarketCap(){
+	var body = '';
+	var url = 'https://api.coinmarketcap.com/v1/global/';
+	https.get(url, function(response){
+        response.on('data', function(chunk){
+            body += chunk;
+        });
+
+        response.on('end', function(){
+             io.emit('globalMarketCap', JSON.parse(body));
+            
+        });
+    }).on('error', function(e){
+          console.log("Got an error: ", e);
+          
+    });		
+}
+
+setInterval(gloablMarketCap, 5000);
