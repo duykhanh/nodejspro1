@@ -172,7 +172,63 @@
 					</tbody>
 				</table>
 			</div>	
+		</div>		
+	
+		<div class="row">
+			<div class="col-xs-6">
+				<h3>POLONIEX</h3>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+							<td>BTC Rate</td>
+							<td>ETH Rate</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Ask Rate</td>
+							<td>
+								{{p_btc_ask_usdRate}}
+							</td>
+							<td>
+								{{p_eth_ask_usdRate}}
+							</td>
+						</tr>
+						<tr>
+							<td>Bid Rate</td>
+							<td>{{p_btc_bid_usdRate}}</td>
+							<td>{{p_eth_bid_usdRate}}</td>
+						</tr>
+					</tbody>					
+				</table>
+			</div>
+			<div class="col-xs-6">
+				<h3>BITTREX</h3>
+				<table>
+					<thead>
+						<tr>
+							<td></td>
+							<td>BTC Rate</td>
+							<td>ETH Rate</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Ask Rate</td>
+							<td>{{b_btc_ask_usdRate}}</td>
+							<td>{{b_eth_ask_usdRate}}</td>
+						</tr>
+						<tr>
+							<td>Bid Rate</td>
+							<td>{{b_btc_bid_usdRate}}</td>
+							<td>{{b_eth_bid_usdRate}}</td>
+						</tr>
+					</tbody>					
+				</table>
+			</div>
 		</div>
+		
 		<div class="row" >
 			<div class="col-xs-12">
 				<h2>Tầm bậy </h2>
@@ -638,19 +694,49 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		}
 	}
 	
+	
+	
+	$scope.p_btc_ask_usdRate=0;
+	$scope.p_eth_ask_usdRate=0;
+	
+	$scope.p_btc_bid_usdRate=0;
+	$scope.p_eth_bid_usdRate=0;
+	
+	
+	
+	$scope.b_btc_ask_usdRate=0;
+	$scope.b_eth_ask_usdRate=0;
+	
+	$scope.b_btc_bid_usdRate=0;
+	$scope.b_eth_bid_usdRate=0;
+			
+	
 	$scope.updateUSDRate=function(){
 		
-		var found_bbtc = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_BTC"}, true);
-		var found_pbtc = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_BTC"}, true);
+		var found_bbtc = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_BTC"}, true);	
+		if(found_bbtc.length>0){
+			$scope.b_btc_bid_usdRate=(remiPrice.btc_bid+(remiPrice.btc_bid/100))/found_bbtc[0].last;
+			$scope.b_btc_ask_usdRate=(remiPrice.btc_ask-(remiPrice.btc_ask/100))/found_bbtc[0].last;
+		}
 		
 		var found_beth = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_ETH"}, true);
-		var found_peth = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_ETH"}, true);
+		if(found_beth.length>0){
+			$scope.b_eth_bid_usdRate=(remiPrice.eth_bid+(remiPrice.eth_bid/100))/found_beth[0].last;
+			$scope.b_eth_ask_usdRate=(remiPrice.eth_ask-(remiPrice.eth_ask/100))/found_beth[0].last;
+		}
 		
-		console.log(found_bbtc);
-		console.log(found_pbtc);
-		console.log("================================");
-		console.log(found_beth);
-		console.log(found_peth);
+		var found_pbtc = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_BTC"}, true);	
+		if(found_pbtc.length>0){
+			$scope.p_btc_bid_usdRate=(remiPrice.btc_bid+(remiPrice.btc_bid/100))/found_pbtc[0].last;
+			$scope.p_btc_ask_usdRate=(remiPrice.btc_ask-(remiPrice.btc_ask/100))/found_pbtc[0].last;
+		}
+				
+		var found_peth = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_ETH"}, true);	
+		if(found_peth.length>0){
+			$scope.p_eth_bid_usdRate=(remiPrice.eth_bid+(remiPrice.eth_bid/100))/found_peth[0].last;
+			$scope.p_eth_ask_usdRate=(remiPrice.eth_ask-(remiPrice.eth_ask/100))/found_peth[0].last;
+		}
+		
 		
 	}
 	
