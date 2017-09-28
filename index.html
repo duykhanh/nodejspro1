@@ -715,26 +715,26 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		
 		var found_bbtc = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_BTC"}, true);	
 		if(found_bbtc.length>0){
-			$scope.b_btc_bid_usdRate=(remiPrice.btc_bid+(remiPrice.btc_bid/100))/found_bbtc[0].last;
-			$scope.b_btc_ask_usdRate=(remiPrice.btc_ask-(remiPrice.btc_ask/100))/found_bbtc[0].last;
+			$scope.b_btc_bid_usdRate=($scope.remiPrice.btc_bid+($scope.remiPrice.btc_bid/100))/found_bbtc[0].last;
+			$scope.b_btc_ask_usdRate=($scope.remiPrice.btc_ask-($scope.remiPrice.btc_ask/100))/found_bbtc[0].last;
 		}
 		
 		var found_beth = $filter('filter')($scope.usdt_bcurrencies, {currencyPair: "USDT_ETH"}, true);
 		if(found_beth.length>0){
-			$scope.b_eth_bid_usdRate=(remiPrice.eth_bid+(remiPrice.eth_bid/100))/found_beth[0].last;
-			$scope.b_eth_ask_usdRate=(remiPrice.eth_ask-(remiPrice.eth_ask/100))/found_beth[0].last;
+			$scope.b_eth_bid_usdRate=($scope.remiPrice.eth_bid+($scope.remiPrice.eth_bid/100))/found_beth[0].last;
+			$scope.b_eth_ask_usdRate=($scope.remiPrice.eth_ask-($scope.remiPrice.eth_ask/100))/found_beth[0].last;
 		}
 		
 		var found_pbtc = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_BTC"}, true);	
 		if(found_pbtc.length>0){
-			$scope.p_btc_bid_usdRate=(remiPrice.btc_bid+(remiPrice.btc_bid/100))/found_pbtc[0].last;
-			$scope.p_btc_ask_usdRate=(remiPrice.btc_ask-(remiPrice.btc_ask/100))/found_pbtc[0].last;
+			$scope.p_btc_bid_usdRate=($scope.remiPrice.btc_bid+($scope.remiPrice.btc_bid/100))/found_pbtc[0].last;
+			$scope.p_btc_ask_usdRate=($scope.remiPrice.btc_ask-($scope.remiPrice.btc_ask/100))/found_pbtc[0].last;
 		}
 				
 		var found_peth = $filter('filter')($scope.usdt_pcurrencies, {currencyPair: "USDT_ETH"}, true);	
 		if(found_peth.length>0){
-			$scope.p_eth_bid_usdRate=(remiPrice.eth_bid+(remiPrice.eth_bid/100))/found_peth[0].last;
-			$scope.p_eth_ask_usdRate=(remiPrice.eth_ask-(remiPrice.eth_ask/100))/found_peth[0].last;
+			$scope.p_eth_bid_usdRate=($scope.remiPrice.eth_bid+($scope.remiPrice.eth_bid/100))/found_peth[0].last;
+			$scope.p_eth_ask_usdRate=($scope.remiPrice.eth_ask-($scope.remiPrice.eth_ask/100))/found_peth[0].last;
 		}
 		
 		
@@ -777,8 +777,10 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 	
 	socketio.on('remiMessages',function(data){
 		$scope.remiPrice=data.vn;
-		console.log(data.vn);    
-		$scope.updateUSDRate();
+		$timeout(function(){
+			$scope.updateUSDRate();
+		},200);    
+		
 	})
 	
 	coincapio.on('global',function(globalMsg){
