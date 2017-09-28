@@ -761,7 +761,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		}
 		$scope.pushToListCurrenices(currency,$scope.POLONIEX);
 		$scope.updateBTCCompareList(currency,$scope.POLONIEX);
-			        
+		$scope.updateUSDRate();	        
     });
     
     socketio.on('bittrexMessages',function(data){
@@ -769,6 +769,7 @@ function MainCtrl($scope,socketio,coincapio,$filter,commonService,$timeout) {
 		var bcurrency=$scope.buildBCurrencyObject(data);
 		$scope.pushToListCurrenices(bcurrency,$scope.BITTREX);
 		$scope.updateBTCCompareList(bcurrency,$scope.BITTREX);
+		$scope.updateUSDRate();
 	});	
 	
     socketio.on('disconnect', function() {
