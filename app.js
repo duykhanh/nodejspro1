@@ -124,7 +124,7 @@ function getPriceRemi() {
         var priceRemi="{"+subString.substring(posFirst-1,subString.lengh)+"}";
         console.log(priceRemi);
         
-        io.emit('remiMessages', JSON.parse(priceRemi));
+        io.emit('remiMessages', JSON.parse(""));
          
     });
 }
